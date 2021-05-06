@@ -2,25 +2,39 @@ package deserve;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class SnakeNLadderBoard {
+public class Game {
 	protected int size;
 	protected List<ISquare> squares = new ArrayList<>();
 	protected Player winner;
 	protected Player player;
 	private int TOTAL_TURNS = 10;
 	private int actualTurn = 1;
-	public SnakeNLadderBoard(int size) {
+	
+	public Game(int size, Player player) {
 		this.size = size;
+		this.player = player;
+		for(int i = 1; i==size; i++)
+		{
+			squares.add(new Square(i, this, null));
+		}
 	}
 	
 	public void setSquareToLadder(int position, int moves) {
-		
+		squares.add(position, new Ladder(position, this, null, moves));
+	}
+	
+	public void setSquareToSnake(int position, int moves) {
+		squares.add(position, new Snake(position, this, null, moves));
 	}
 
 	public ISquare findSquare(int position, int move) {
-		return this.getSquare(target);
+		return this.getSquare(position+move);
+	}
+	
+	public ISquare getSquare(int position)
+	{
+		return squares.get(position);
 	}
 	
 	public void play(Dice dice) {
@@ -36,7 +50,7 @@ public class SnakeNLadderBoard {
 	
 	public void movePlayer(int roll) {
 		player.moveForward(roll);
-		if (player.wins()) {
+		if (player.wins(size)) {
 			winner = player;
 		}
 	}
@@ -51,9 +65,5 @@ public class SnakeNLadderBoard {
 	
 	public void incrementActualTurn() {
 		actualTurn++;
-	}
-	
-	public boolean isWinner(int playerPosition) {
-		return playerPosition == WIN_POSITION;
 	}
 }

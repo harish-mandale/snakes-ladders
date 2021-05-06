@@ -9,7 +9,7 @@ public class Player {
 		square.enter(this);
 	}
 	
-	public boolean wins() {
-		return square.position() == SnakeNLadderBoard.WIN_POSITION;
+	public boolean wins(int winPosition) {
+		return square.position() == winPosition;
 	}
 }

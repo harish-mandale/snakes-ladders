@@ -2,14 +2,13 @@ package deserve;
 
 public class Square implements ISquare {
 	protected int position;
-	protected GameSlate game;
 	protected Player player;
-	
-	public Square(int position, GameSlate game, Player player) {
+	protected Game game;
+	public Square(int position, Game game, Player player) {
 		super();
 		this.position = position;
-		this.game = game;
 		this.player = player;
+		this.game = game;
 	}
 
 	public void enter(Player player) {
@@ -21,7 +20,7 @@ public class Square implements ISquare {
 	}
 	
 	public ISquare landHereOrGoHome() {
-		return this.isOccupied() ? game.firstSquare() : this ;
+		return this.isOccupied() ? game.getSquare(1) : this ;
 	}
 	
 	@Override
