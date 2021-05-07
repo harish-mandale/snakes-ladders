@@ -1,31 +1,35 @@
 package deserve;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Game {
 	protected int size;
-	protected List<ISquare> squares = new ArrayList<>();
+	protected Map<Integer, ISquare> squares = new HashMap<>();
 	protected Player winner;
 	protected Player player;
 	private int TOTAL_TURNS = 10;
 	private int actualTurn = 1;
 	
-	public Game(int size, Player player) {
+	public void setSquares(int size) {
 		this.size = size;
-		this.player = player;
-		for(int i = 1; i==size; i++)
+		for(int i = 0; i<size; i++)
 		{
-			squares.add(new Square(i, this, null));
+			squares.put(i+1, new Square(i+1, this, null));
 		}
 	}
 	
+	public void setPlayer(Player player) {
+		this.player = player;
+		this.player.setInitialPosition(getSquare(1));
+	}
+	
 	public void setSquareToLadder(int position, int moves) {
-		squares.add(position, new Ladder(position, this, null, moves));
+		squares.put(position, new Ladder(position, this, null, moves));
 	}
 	
 	public void setSquareToSnake(int position, int moves) {
-		squares.add(position, new Snake(position, this, null, moves));
+		squares.put(position, new Snake(position, this, null, moves));
 	}
 
 	public ISquare findSquare(int position, int move) {

@@ -1,41 +1,38 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.HashMap;
-import java.util.Map;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import deserve.SnakeNLadderBoard;
+import deserve.Game;
+import deserve.Player;
 
-public class SnakeNLadderBoardTest {
+public class GameTest {
 
-	private SnakeNLadderBoard board;
+	private Game board;
 	
 	@Before
 	public void testMain() {
-		board = new SnakeNLadderBoard();
+		board = new Game();
 	}
 	
 	@Test
-	public void testNewMove() {
-        Map<Integer, Integer> snakes = new HashMap<>();
-        snakes.put(14,7);
-        snakes.put(36,5);
-        Map<Integer, Integer> ladders = new HashMap<>();
-        ladders.put(9,25);
-        ladders.put(1,35);
-        ladders.put(37,88);
-        board.addSnakes(snakes);
-        board.addLadders(ladders);
-        board.nextMove(1);
-        int i = board.nextMove(1);
-        assertEquals(5, i);
+	public void testIntial() {
+	   board.setSquares(100);
+       Player player = new Player("Ramon");
+       board.setPlayer(player);
+       board.setSquareToLadder(2, 4);
+       board.setSquareToLadder(7, 2);
+       board.setSquareToSnake(11, -6);
+       assertTrue(board.notOver());
+       assertTrue(board.getSquare(1).isOccupied());
+       assertEquals(1, player.position());
+
 	}
 
-	@Test
+	/*@Test
 	public void testSnakeNLadderCheck14_7() {
 		Map<Integer, Integer> snakes = new HashMap<>();
 		snakes.put(14,7);
@@ -133,5 +130,5 @@ public class SnakeNLadderBoardTest {
         board.nextMove(2);
         int i = board.nextMove(4);
         assertEquals(98, i);
-	}
+	}*/
 }
