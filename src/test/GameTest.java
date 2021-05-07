@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -43,6 +44,20 @@ public class GameTest {
 	}
 	
 	@Test
+	public void testSnakeAtPosition14MovePlayerTo7() {
+       Player player = new Player("Ramon");
+       board.setPlayer(player);
+       board.setSquareToSnake(14, -7);
+       board.movePlayer(1);
+       board.movePlayer(4);
+       board.movePlayer(4);
+       board.movePlayer(4);
+       assertTrue(board.getSquare(7).isOccupied());
+       assertTrue(board.notOver());
+       assertEquals(7, player.position());
+	}
+	
+	@Test
 	public void testFirstMoveWithNormalDice4PositionUpWithLadder() {
        Player player = new Player("Ramon");
        board.setPlayer(player);
@@ -53,6 +68,20 @@ public class GameTest {
        assertTrue(board.getSquare(6).isOccupied());
        assertTrue(board.notOver());
        assertEquals(6, player.position());
+	}
+	
+	@Test
+	public void testFirstMoveWithNormalDice8PositionDownWithSnake() {
+       Player player = new Player("Ramon");
+       board.setPlayer(player);
+       board.setSquareToLadder(7, 2);
+       board.setSquareToSnake(11, -8);
+       board.movePlayer(6);
+       assertTrue(board.getSquare(9).isOccupied());
+       assertTrue(board.notOver());
+       board.movePlayer(2);
+       assertEquals(3, player.position());
+       assertTrue(board.notOver());
 	}
 	
 	@Test
@@ -75,104 +104,25 @@ public class GameTest {
        assertTrue(board.notOver());
        assertEquals(41, player.position());
 	}
-
-	/*@Test
-	public void testSnakeNLadderCheck14_7() {
-		Map<Integer, Integer> snakes = new HashMap<>();
-		snakes.put(14,7);
-		board.addSnakes(snakes);
-		board.updatePlayerPosition(12);
-		int i = board.nextMove(2);
-		assertEquals(7, i);
-	}
 	
 	@Test
-	public void testSnakeNLadderCheck1() {
-		Map<Integer, Integer> snakes = new HashMap<>();
-		board.addSnakes(snakes);
-		board.updatePlayerPosition(10);
-		int i = board.nextMove(6);
-		assertEquals(16, i);
+	public void testPlayerWonTheGame() {
+       Player player = new Player("Ramon");
+       board.setPlayer(player);
+       board.setSquareToLadder(6, 80);
+       board.setSquareToLadder(66, 20);
+       board.setSquareToSnake(82, -20);
+       board.movePlayer(1);
+       board.movePlayer(4);
+       assertTrue(board.getSquare(86).isOccupied());
+       assertEquals(86, player.position());
+       board.movePlayer(6);
+       board.movePlayer(2);
+       assertTrue(board.getSquare(94).isOccupied());
+       assertEquals(94, player.position());
+       board.movePlayer(6);
+       assertTrue(board.getSquare(100).isOccupied());
+       assertFalse(board.notOver());
+       assertEquals(100, player.position());
 	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testNextMoveWithException() {
-		Map<Integer, Integer> snakes = new HashMap<>();
-		board.addSnakes(snakes);
-		board.updatePlayerPosition(0);
-		assertEquals(0, board.nextMove(-1));
-	}
-
-	@Test
-	public void testRollDiceThrowsEvenNumber() {
-		int value = board.rollEvenNumbersDice();
-		assertEquals(0,value % 2);
-	}
-
-	@Test
-	public void testIsWinnerPlayerScore100() {
-		Map<Integer, Integer> snakes = new HashMap<>();
-        snakes.put(14,7);
-        snakes.put(36,5);
-        Map<Integer, Integer> ladders = new HashMap<>();
-        ladders.put(9,25);
-        ladders.put(2,35);
-        ladders.put(37,88);
-        ladders.put(90,100);
-        board.updatePlayerPosition(0);
-        board.addSnakes(snakes);
-        board.addLadders(ladders);
-        board.nextMove(2);
-        board.nextMove(2);
-        board.nextMove(2);
-        int i = board.nextMove(2);
-        assertEquals(100, i);
-	}
-	
-	@Test
-	public void testActualTurnCountMoreThan10() {
-		Map<Integer, Integer> snakes = new HashMap<>();
-        snakes.put(14,7);
-        snakes.put(36,5);
-        Map<Integer, Integer> ladders = new HashMap<>();
-        ladders.put(9,25);
-        ladders.put(37,88);
-        ladders.put(90,100);
-        board.updatePlayerPosition(0);
-        board.addSnakes(snakes);
-        board.addLadders(ladders);
-        board.nextMove(2);
-        board.nextMove(4);
-        board.nextMove(6);
-        board.nextMove(2);
-        board.nextMove(4);
-        board.nextMove(6);
-        board.nextMove(2);
-        board.nextMove(2);
-        board.nextMove(4);
-        board.nextMove(2);
-        board.nextMove(2);
-        int i = board.nextMove(2);
-        assertEquals(29, i);
-	}
-	
-	@Test
-	public void testPlayerScoreMoreThan100() {
-		Map<Integer, Integer> snakes = new HashMap<>();
-        snakes.put(14,7);
-        snakes.put(36,5);
-        Map<Integer, Integer> ladders = new HashMap<>();
-        ladders.put(9,25);
-        ladders.put(2,35);
-        ladders.put(37,88);
-        ladders.put(90,98);
-        board.updatePlayerPosition(0);
-        board.addSnakes(snakes);
-        board.addLadders(ladders);
-        board.nextMove(2);
-        board.nextMove(2);
-        board.nextMove(2);
-        int i = board.nextMove(4);
-        assertEquals(98, i);
-	}*/
 }
