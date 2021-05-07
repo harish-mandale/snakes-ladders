@@ -2,7 +2,12 @@ package deserve;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * 
+ * @author harish mandale
+ * Snake and Ladder
+ *
+ */
 public class Game {
 	protected int size;
 	protected Map<Integer, ISquare> squares = new HashMap<>();
@@ -13,8 +18,7 @@ public class Game {
 	
 	public void setSquares(int size) {
 		this.size = size;
-		for(int i = 0; i<size; i++)
-		{
+		for(int i = 0; i<size; i++) {
 			squares.put(i+1, new Square(i+1, this, null));
 		}
 	}
@@ -44,7 +48,7 @@ public class Game {
 	public void play(Dice dice) {
 		while(this.notOver()) {
 			int roll = dice.roll();
-			System.out.println(this.currentPlayer()
+			System.out.println(this.player
 			+ " rolls " + roll + ": " + this);
 			this.movePlayer(roll);
 			incrementActualTurn();
@@ -61,10 +65,6 @@ public class Game {
 	
 	public boolean notOver() {
 		return winner == null && actualTurn < TOTAL_TURNS;
-	}
-	
-	private Player currentPlayer() {
-		return this.player;
 	}
 	
 	private void incrementActualTurn() {

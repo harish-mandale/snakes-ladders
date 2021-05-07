@@ -6,8 +6,8 @@ public class Ladder extends Square {
 		super(position, game, player);
 		this.transport = transport;
 	}
-	public ISquare landHereOrGoHome() {
-		return this.destination().landHereOrGoHome();
+	public ISquare landHere() {
+		return this.destination().landHere();
 	}
 	protected ISquare destination() {
 		return game.getSquare(position+transport);

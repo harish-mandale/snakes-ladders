@@ -16,11 +16,11 @@ public class Square implements ISquare {
 	}
 	
 	public ISquare moveAndLand(int moves) {
-		return game.findSquare(position, moves).landHereOrGoHome();
+		return game.findSquare(position, moves).landHere();
 	}
 	
-	public ISquare landHereOrGoHome() {
-		return this.isOccupied() ? game.getSquare(1) : this ;
+	public ISquare landHere() {
+		return this ;
 	}
 	
 	@Override

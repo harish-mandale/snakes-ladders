@@ -6,5 +6,5 @@ public interface ISquare {
 	public void enter(Player player);
 	public void leave(Player player);
 	public boolean isOccupied();
-	public ISquare landHereOrGoHome();
+	public ISquare landHere();
 }
