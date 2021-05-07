@@ -16,10 +16,11 @@ public class GameTest {
 	@Before
 	public void testMain() {
 		board = new Game();
+		board.setSquares(100);
 	}
 	
 	@Test
-	public void testIntial() {
+	public void testPlayerAtFirstPosition() {
 	   board.setSquares(100);
        Player player = new Player("Ramon");
        board.setPlayer(player);
@@ -29,7 +30,50 @@ public class GameTest {
        assertTrue(board.notOver());
        assertTrue(board.getSquare(1).isOccupied());
        assertEquals(1, player.position());
-
+	}
+	
+	@Test
+	public void testFirstMoveWithNormalDice() {
+       Player player = new Player("Ramon");
+       board.setPlayer(player);
+       board.movePlayer(1);
+       assertTrue(board.notOver());
+       assertTrue(board.getSquare(2).isOccupied());
+       assertEquals(2, player.position());
+	}
+	
+	@Test
+	public void testFirstMoveWithNormalDice4PositionUpWithLadder() {
+       Player player = new Player("Ramon");
+       board.setPlayer(player);
+       board.setSquareToLadder(2, 4);
+       board.setSquareToLadder(7, 2);
+       board.setSquareToSnake(11, -6);
+       board.movePlayer(1);
+       assertTrue(board.getSquare(6).isOccupied());
+       assertTrue(board.notOver());
+       assertEquals(6, player.position());
+	}
+	
+	@Test
+	public void testTotalTurn10Exausted() {
+       Player player = new Player("Ramon");
+       board.setPlayer(player);
+       board.setSquareToLadder(7, 20);
+       board.setSquareToSnake(40, -26);
+       board.movePlayer(2);
+       board.movePlayer(2);
+       board.movePlayer(2);
+       board.movePlayer(2);
+       board.movePlayer(2);
+       board.movePlayer(2);
+       board.movePlayer(2);
+       board.movePlayer(2);
+       board.movePlayer(2);
+       board.movePlayer(2);
+       assertTrue(board.getSquare(41).isOccupied());
+       assertTrue(board.notOver());
+       assertEquals(41, player.position());
 	}
 
 	/*@Test

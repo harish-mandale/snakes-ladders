@@ -63,11 +63,11 @@ public class Game {
 		return winner == null && actualTurn < TOTAL_TURNS;
 	}
 	
-	public Player currentPlayer() {
+	private Player currentPlayer() {
 		return this.player;
 	}
 	
-	public void incrementActualTurn() {
+	private void incrementActualTurn() {
 		actualTurn++;
 	}
 }
