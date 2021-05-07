@@ -22,7 +22,6 @@ public class GameTest {
 	
 	@Test
 	public void testPlayerAtFirstPosition() {
-	   board.setSquares(100);
        Player player = new Player("Ramon");
        board.setPlayer(player);
        board.setSquareToLadder(2, 4);
